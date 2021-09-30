@@ -8,11 +8,11 @@ function makeCode(text) {
 const urlParams = new URLSearchParams(window.location.search);
 const text = urlParams.get('text');
 if (text) {
-	window.history.pushState(text, 'pageTitle', '/?text=' + text);
+	window.history.pushState(text, 'pageTitle', window.location.pathname + '?text=' + text);
 	$("#text").val(text)
 	makeCode(text);
 } else {
-	window.history.pushState(defaultText, 'pageTitle', '/?text=' + defaultText);
+	window.history.pushState(defaultText, 'pageTitle', window.location.pathname + '?text=' + defaultText);
 	$("#text").val(defaultText)
 	makeCode(defaultText);
 }
@@ -25,7 +25,7 @@ $("#text").
 			$(".qrcode").css("opacity", 0)
 		} else {
 			$(".qrcode").css("opacity", 1)
-			window.history.pushState(text, 'pageTitle', '/?text=' + text);
+			window.history.pushState(text, 'pageTitle', window.location.pathname + '?text=' + text);
 			makeCode(text);
 		}
 	}).
@@ -37,7 +37,7 @@ $("#text").
 				$(".qrcode").css("opacity", 0)
 			} else {
 				$(".qrcode").css("opacity", 1)
-				window.history.pushState(text, 'pageTitle', '/?text=' + text);
+				window.history.pushState(text, 'pageTitle', window.location.pathname + '?text=' + text);
 				makeCode(text);
 			}
 		}
@@ -45,7 +45,6 @@ $("#text").
 
 window.onpopstate = function (e) {
 	if (e.state) {
-		document.title = e.state + " | QR From Query";
 		$("#text").val(e.state)
 		makeCode(e.state);
 	}
